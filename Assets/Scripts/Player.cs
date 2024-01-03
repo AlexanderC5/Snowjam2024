@@ -60,9 +60,9 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(speed, yVelocity);
                 diving = false;
             }
+            height = transform.position.y;
+            distance = transform.position.x;
         }
-        height = transform.position.y;
-        distance = transform.position.x;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
