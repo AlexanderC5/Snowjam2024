@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBorder : MonoBehaviour
 {
+    [SerializeField]
+    private int coinWorth = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,16 @@ public class PlayerBorder : MonoBehaviour
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().gameOver = true;
             GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity = new Vector2(0, 0);
-            GameObject.FindWithTag("Player").GetComponent<Player>().score -= 1;
+            //GameObject.FindWithTag("Player").GetComponent<Player>().score -= 1;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().score += coinWorth;
+            Destroy(collision.gameObject);
         }
     }
 }

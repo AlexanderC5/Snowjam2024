@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Finish"))
         {
             rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y);
-            score += 1;
+            //score += 1;
         }
     }
 
