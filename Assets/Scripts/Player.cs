@@ -21,37 +21,60 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        //rb.velocity = new Vector2(0, 0);
         //rb.gravityScale = gravityScaler;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !gameOver)
+        if (!gameOver)
         {
-            yVelocity = flapHeight;
-            rb.velocity = new Vector2(speed, yVelocity);
+            if (Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                yVelocity = flapHeight;
+                rb.velocity = new Vector2(speed, yVelocity);
+                //rb.rotation = 45f;
+            }
+            else if (Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                yVelocity = Mathf.Pow(yVelocity, 1.2f) * -1;
+                rb.velocity = new Vector2(speed, yVelocity);
+                //rb.rotation = -45f;
+            }
+            rb.gravityScale = gravityScaler;
         }
-        else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !gameOver)
-        {
-            yVelocity = Mathf.Pow(yVelocity, 1.2f) * -1;
-            rb.velocity = new Vector2(speed, yVelocity);
-        }
-        rb.gravityScale = gravityScaler;
-
-        /*else
-        {
-            yVelocity = rb.gravityScale;
-        }*/
-        //rb.velocity = new Vector2(speed, yVelocity);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("TagOfCollidingObject"))
+        /*if (collision.gameObject.CompareTag("Finish"))
         {
             gameOver = true;
             rb.velocity = new Vector2(0, 0);
+        }*/
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y);
+            //GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity = new Vector2(GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity.x + 1, GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity.y);
         }
+
+        /*
+        if (gameObject.tag == "Player")
+        {
+            if (collision.gameObject.CompareTag("Finish"))
+            {
+                gameOver = true;
+                rb.velocity = new Vector2(0, 0);
+            }
+        }
+        else if(gameObject.tag == "Border")
+        {
+            if (collision.gameObject.CompareTag("Finish"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y + 1);
+            }
+        }*/
     }
+
 }
