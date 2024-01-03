@@ -32,6 +32,7 @@ public class PlayerBorder : MonoBehaviour
         if (collision.gameObject.CompareTag("Coin"))
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().score += coinWorth;
+            GameObject.FindWithTag("Player").GetComponent<Player>().backgroundScore += coinWorth;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("flapHeightUpgrade"))

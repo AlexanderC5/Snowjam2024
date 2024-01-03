@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     public double timeLimit = 100.0;
 
+    public int backgroundScore = 0;
     public double time;
     public Rigidbody2D rb;
     private float yVelocity = 0.0f;
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour
     public float diveUpgrade = 0f;
     public float flapHeightUpgrade = 0f;
     public float speedUpgrade = 0f;
+
+    private bool wasHandled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +51,14 @@ public class Player : MonoBehaviour
         {
             gameOver = true;
         }
+
+        // add to max time dependent on score
+        if (backgroundScore >= 3)
+        {
+            timeLimit += 5;
+            backgroundScore -= 3;
+        }
+
         if (!gameOver && !win)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
@@ -73,6 +84,10 @@ public class Player : MonoBehaviour
             }
             height = transform.position.y;
             distance = transform.position.x;
+            if(!wasHandled && rb.velocity.x != 0)
+            {
+                StartCoroutine(scoreAdd());
+            }
         }
     }
 
@@ -84,5 +99,13 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y);
             //score += 1;
         }
+    }
+
+    private IEnumerator scoreAdd()
+    {
+        wasHandled = true;
+        yield return new WaitForSeconds(1.0f);
+        score += (int) speed;
+        wasHandled = false;
     }
 }
