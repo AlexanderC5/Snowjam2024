@@ -5,13 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 1.0f;
+    private float speed = 2.5f;
     [SerializeField]
-    private float flapHeight = 10.0f;
+    private float flapHeight = 4f;
+    [SerializeField]
+    private float maxFallingVelocity = -100f;
 
     public Rigidbody2D rb;
     private float yVelocity = 0.0f;
     public bool gameOver = false;
+    public float height;
+    public float distance;
+    private bool diving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,17 +29,31 @@ public class Player : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow))
+            if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
                 yVelocity = flapHeight;
                 rb.velocity = new Vector2(speed, yVelocity);
             }
-            else if (Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow))
+            else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
-                yVelocity = Mathf.Pow(yVelocity, 1.2f) * -1;
+                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f) * -1f;
+                if (yVelocity < maxFallingVelocity)
+                {
+                    yVelocity = maxFallingVelocity;
+                }
+                Debug.Log(yVelocity);
                 rb.velocity = new Vector2(speed, yVelocity);
+                diving = true;
+            }
+            else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
+            {
+                yVelocity = flapHeight;
+                rb.velocity = new Vector2(speed, yVelocity);
+                diving = false;
             }
         }
+        height = transform.position.y;
+        distance = transform.position.x;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
