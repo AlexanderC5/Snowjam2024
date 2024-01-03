@@ -21,6 +21,7 @@ public class PlayerBorder : MonoBehaviour
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().gameOver = true;
             GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity = new Vector2(0, 0);
+            GameObject.FindWithTag("Player").GetComponent<Player>().score -= 1;
         }
     }
 }

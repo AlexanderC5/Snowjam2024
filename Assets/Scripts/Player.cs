@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     private float flapHeight = 4f;
     [SerializeField]
     private float maxFallingVelocity = -100f;
+    [SerializeField]
+    public int score = 0;
+    [SerializeField]
+    public double timeLimit = 100.0;
 
     public double time;
     public Rigidbody2D rb;
@@ -29,6 +33,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         time = Time.time;
+        if (time > timeLimit)
+        {
+            gameOver = true;
+        }
         if (!gameOver)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
@@ -63,6 +71,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Finish"))
         {
             rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y);
+            score += 1;
         }
     }
 
