@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca11ffbc0eb6d143816b271e9726ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2.5
   flapHeight: 4
   maxFallingVelocity: -100
   rb: {fileID: 0}

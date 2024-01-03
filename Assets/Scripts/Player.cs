@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
                 {
                     yVelocity = maxFallingVelocity;
                 }
-                Debug.Log(yVelocity);
                 rb.velocity = new Vector2(speed, yVelocity);
                 diving = true;
             }
