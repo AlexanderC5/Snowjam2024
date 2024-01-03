@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin
+  - flapHeightUpgrade
+  - diveUpgrade
+  - speedUpgrade
   layers:
   - Default
   - TransparentFX

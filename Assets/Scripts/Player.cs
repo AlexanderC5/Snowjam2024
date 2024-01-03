@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public float height;
     public float distance;
     private bool diving = false;
+    private float winDist = 50f;
+    public bool win = false;
 
     //upgrade counter
     public float diveUpgrade = 0f;
@@ -38,11 +40,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         time = Time.time;
-        if (time > timeLimit)
+        if (distance >= winDist)
+        {
+            win = true;
+        }
+        else if (time > timeLimit)
         {
             gameOver = true;
         }
-        if (!gameOver)
+        if (!gameOver && !win)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
