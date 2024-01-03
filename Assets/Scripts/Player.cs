@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D rb;
     private float yVelocity = 0.0f;
+    public bool gameOver = false;
     
 
 
@@ -26,12 +27,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow))
+        if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !gameOver)
         {
             yVelocity = flapHeight;
             rb.velocity = new Vector2(speed, yVelocity);
         }
-        else if (Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow))
+        else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !gameOver)
         {
             yVelocity = Mathf.Pow(yVelocity, 1.2f) * -1;
             rb.velocity = new Vector2(speed, yVelocity);
@@ -49,7 +50,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("TagOfCollidingObject"))
         {
-            //end
+            gameOver = true;
+            rb.velocity = new Vector2(0, 0);
         }
     }
 }
