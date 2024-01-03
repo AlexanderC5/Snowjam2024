@@ -34,5 +34,20 @@ public class PlayerBorder : MonoBehaviour
             GameObject.FindWithTag("Player").GetComponent<Player>().score += coinWorth;
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("flapHeightUpgrade"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().flapHeightUpgrade += 0.25f;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("diveUpgrade"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().diveUpgrade += 0.02f;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("speedUpgrade"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().speedUpgrade += 0.5f;
+            Destroy(collision.gameObject);
+        }
     }
 }

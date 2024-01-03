@@ -23,6 +23,11 @@ public class Player : MonoBehaviour
     public float distance;
     private bool diving = false;
 
+    //upgrade counter
+    public float diveUpgrade = 0f;
+    public float flapHeightUpgrade = 0f;
+    public float speedUpgrade = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,17 +46,17 @@ public class Player : MonoBehaviour
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
-                yVelocity = flapHeight;
-                rb.velocity = new Vector2(speed, yVelocity);
+                yVelocity = flapHeight + flapHeightUpgrade;
+                rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
-                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f) * -1f;
+                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f + diveUpgrade) * -1f;
                 if (yVelocity < maxFallingVelocity)
                 {
                     yVelocity = maxFallingVelocity;
                 }
-                rb.velocity = new Vector2(speed, yVelocity);
+                rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
                 diving = true;
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
@@ -74,5 +79,4 @@ public class Player : MonoBehaviour
             //score += 1;
         }
     }
-
 }
