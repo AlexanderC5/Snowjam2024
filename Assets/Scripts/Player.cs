@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float maxFallingVelocity = -100f;
 
+    public double time;
     public Rigidbody2D rb;
     private float yVelocity = 0.0f;
     public bool gameOver = false;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time = Time.time;
         if (!gameOver)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
