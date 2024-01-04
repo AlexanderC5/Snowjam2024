@@ -6,6 +6,8 @@ using UnityEditor;
 public class GameManager : MonoBehaviour
 {
     public string zone;
+    public GameObject[] Prefabs;
+
     //[SerializeField]
     //public Unity[] Units;
 
@@ -14,11 +16,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] guids1 = AssetDatabase.FindAssets("Zone1Obs", null);
+        /*string[] guids1 = AssetDatabase.FindAssets("Zone1Obs", null);
         foreach (string guid1 in guids1)
         {
             Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
         }
+        Debug.Log(AssetDatabase.GUIDToAssetPath(guids1[0]));
+        Object prefab = Resources.Load(AssetDatabase.GUIDToAssetPath(guids1[0]));
+        Instantiate(prefab);*/
+        //Instantiate(AssetDatabase.GUIDToAssetPath(guids1[0]));
+        //Instantiate(guids1[0]);
+        //Instantiate(AssetDatabase.LoadAssetAtPath("Assets/prefabs/" + guids1[0], typeof(GameObject)));
         //Object[] prefabs = Resources.LoadAll<Object>("Assets/Prefabs/Obstacles/Zone1");
         //Debug.Log(prefabs.Length);
         //zone = "Zone1";
