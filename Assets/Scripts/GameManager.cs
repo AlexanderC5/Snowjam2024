@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     void generateRandObs(int zone)
     {
+        // NOTE: can spawn outside of diagonal, rectangular zones
         GameObject currZone = GameObject.FindWithTag("Player").GetComponent<Player>().Zone;
         float x = Random.Range(currZone.GetComponent<Renderer>().bounds.min.x, currZone.GetComponent<Renderer>().bounds.max.x);
         float y = Random.Range(currZone.GetComponent<Renderer>().bounds.min.y, currZone.GetComponent<Renderer>().bounds.max.y);
