@@ -8,7 +8,7 @@ public class AuroraEffect : MonoBehaviour
     [SerializeField]    private float[] ZONE_ALTITUDE = {500f, 1000f, 1500f};
     [SerializeField]    private float[] AURORA_TRANSPARENCY = {90f, 18f, 4f};
 
-    private GameObject player;
+    private Player player;
     private ParticleSystem[] particles;
     private float playerHeight;
     private float alphaMultiplier;
@@ -19,7 +19,7 @@ public class AuroraEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         particles = this.GetComponentsInChildren<ParticleSystem>();
 
         // Hard-coded default color gradient (so we don't accidentally lose the values)
@@ -39,7 +39,9 @@ public class AuroraEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHeight = player.transform.localPosition.y;
+        //playerHeight = player.transform.localPosition.y;
+        playerHeight = player.height;
+        
         if (playerHeight < 0) playerHeight = 0;
         if (playerHeight > ZONE_ALTITUDE[2]) playerHeight = ZONE_ALTITUDE[2];
 
