@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private bool diving = false;
     private float winDist = 50f;
     public bool win = false;
+    public int inZone;
 
     //upgrade counter
     public float diveUpgrade = 0f;
