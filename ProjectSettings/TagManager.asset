@@ -8,6 +8,7 @@ TagManager:
   - flapHeightUpgrade
   - diveUpgrade
   - speedUpgrade
+  - zone
   layers:
   - Default
   - TransparentFX

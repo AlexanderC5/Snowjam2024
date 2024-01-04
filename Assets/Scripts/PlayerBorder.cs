@@ -50,5 +50,10 @@ public class PlayerBorder : MonoBehaviour
             GameObject.FindWithTag("Player").GetComponent<Player>().speedUpgrade += 0.5f;
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("zone"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().inZone = collision.gameObject.GetComponent<Zone>().zone;
+            GameObject.FindWithTag("Player").GetComponent<Player>().Zone = collision.gameObject;
+        }
     }
 }
