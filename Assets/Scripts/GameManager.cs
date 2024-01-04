@@ -5,52 +5,47 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    public string zone;
-    public GameObject[] Prefabs;
+    public int zone = 1;
+    public GameObject[] Zone1Prefabs;
+    public GameObject[] Zone2Prefabs;
+    public GameObject[] Zone3Prefabs;
+    public GameObject[] Zone4Prefabs;
 
-    //[SerializeField]
-    //public Unity[] Units;
-
-    //private GameObject[] availableObstacles;
-    //[MenuItem("AssetDatabase/Get Folder List")]
     // Start is called before the first frame update
     void Start()
     {
-        /*string[] guids1 = AssetDatabase.FindAssets("Zone1Obs", null);
-        foreach (string guid1 in guids1)
-        {
-            Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
-        }
-        Debug.Log(AssetDatabase.GUIDToAssetPath(guids1[0]));
-        Object prefab = Resources.Load(AssetDatabase.GUIDToAssetPath(guids1[0]));
-        Instantiate(prefab);*/
-        //Instantiate(AssetDatabase.GUIDToAssetPath(guids1[0]));
-        //Instantiate(guids1[0]);
-        //Instantiate(AssetDatabase.LoadAssetAtPath("Assets/prefabs/" + guids1[0], typeof(GameObject)));
-        //Object[] prefabs = Resources.LoadAll<Object>("Assets/Prefabs/Obstacles/Zone1");
-        //Debug.Log(prefabs.Length);
-        //zone = "Zone1";
-        //Object[] skinObjects = Resources.LoadAll("Assets/Prefabs/Obstacles");
-        // Get length of list
-        //int amountOfSkins = skinObjects.Length;
-        //Debug.Log(amountOfSkins);
-        //var folders = AssetDatabase.GetSubFolders("Assets\\Prefabs\\Obstacles\\" + zone);
-        /*availableObstacles = Resources.LoadAll("Assets\\Prefabs\\Obstacles\\" + zone);
-        foreach (var t in availableObstacles)
-        {
-            Debug.Log(availableObstacles);
-        }
-        int amount = availableObstacles.Length;
-        Debug.Log(amount);*/
-        /*foreach (var folder in folders)
-        {
-            Debug.Log(folder);
-        }*/
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void spawnObs(int zone, float x, float y)
+    {
+        //Random.Range(-1.88f, 2.1f), Random.Range(-7.81f, -3.1f)
+        Vector3 position = new Vector3(x, y);
+        if (zone == 1)
+        {
+            Instantiate(Zone1Prefabs[Random.Range(0, Zone1Prefabs.Length)], position, Quaternion.identity);
+        }
+        else if (zone == 2)
+        {
+            Instantiate(Zone2Prefabs[Random.Range(0, Zone2Prefabs.Length)], position, Quaternion.identity);
+        }
+        else if (zone == 3)
+        {
+            Instantiate(Zone3Prefabs[Random.Range(0, Zone3Prefabs.Length)], position, Quaternion.identity);
+        }
+        else if (zone == 4)
+        {
+            Instantiate(Zone4Prefabs[Random.Range(0, Zone4Prefabs.Length)], position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(Zone1Prefabs[Random.Range(0, Zone1Prefabs.Length)], position, Quaternion.identity);
+        }
     }
 }
