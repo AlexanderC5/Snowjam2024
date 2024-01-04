@@ -53,6 +53,7 @@ public class PlayerBorder : MonoBehaviour
         else if (collision.gameObject.CompareTag("zone"))
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().inZone = collision.gameObject.GetComponent<Zone>().zone;
+            GameObject.FindWithTag("Player").GetComponent<Player>().Zone = collision.gameObject;
         }
     }
 }

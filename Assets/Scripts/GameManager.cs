@@ -23,6 +23,14 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void generateRandObs(int zone)
+    {
+        GameObject currZone = GameObject.FindWithTag("Player").GetComponent<Player>().Zone;
+        float x = Random.Range(currZone.GetComponent<Renderer>().bounds.min.x, currZone.GetComponent<Renderer>().bounds.max.x);
+        float y = Random.Range(currZone.GetComponent<Renderer>().bounds.min.y, currZone.GetComponent<Renderer>().bounds.max.y);
+        spawnObs(zone, x, y);
+    }
+
     void spawnObs(int zone, float x, float y)
     {
         //Random.Range(-1.88f, 2.1f), Random.Range(-7.81f, -3.1f)
