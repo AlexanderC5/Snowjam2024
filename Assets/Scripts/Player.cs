@@ -84,6 +84,12 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(speed, yVelocity);
                 diving = false;
             }
+
+            if (rb.velocity.y <= maxFallingVelocity)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, maxFallingVelocity);
+            }
+
             height = transform.position.y;
             distance = transform.position.x;
             if(!wasHandled && rb.velocity.x != 0)
