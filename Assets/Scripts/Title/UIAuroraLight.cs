@@ -12,7 +12,7 @@ public class UIAuroraLight : MonoBehaviour
     {
         try
         {
-        auroraLights = GetComponent<Light2D>();
+            auroraLights = GetComponent<Light2D>();
         }
         catch
         {
