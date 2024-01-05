@@ -9,6 +9,8 @@ public class WindCurrent : MonoBehaviour
         Radial 
     };
 
+    [SerializeField] public bool RandomizeSize = false;
+    [SerializeField] public bool RandomizeStrength = false;
     [SerializeField] public Vector2 Direction;
     [SerializeField] public float Strength = 1.0f;
     [SerializeField] public CurrentType Type;
@@ -18,18 +20,25 @@ public class WindCurrent : MonoBehaviour
     {
         if (!TryGetComponent<ParticleSystem>(out particles))
             Debug.LogWarning("No Particle System");
+        if (Direction.magnitude == 0)
+            Direction = Random.insideUnitCircle;
         Direction = Direction.normalized;
+        if (RandomizeSize)
+            transform.localScale *= 0.5f + Random.value;
+        if (RandomizeStrength)
+            Strength *= 1 - 2*Random.value;
 
         // configure particle system depending on wind current
         var velOverLifetime = particles.velocityOverLifetime;
         switch (Type)
         {
             case (CurrentType.Radial):
-                velOverLifetime.radial = Strength;
+                velOverLifetime.radial = Strength / 2;
                 break;
             case (CurrentType.Directional):
-                velOverLifetime.x = Direction.x * Strength;
-                velOverLifetime.y = Direction.y * Strength;
+                velOverLifetime.radial = 0;
+                velOverLifetime.x = Direction.x * Strength / 2;
+                velOverLifetime.y = Direction.y * Strength / 2;
                 break;
         }
     }
