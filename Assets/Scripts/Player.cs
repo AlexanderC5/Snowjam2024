@@ -35,10 +35,14 @@ public class Player : MonoBehaviour
 
     private bool wasHandled = false;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        //animator = GameObject.FindWithTag("SpritePlayer").GetComponent<Animator>();
+        animator = transform.Find("SpritePlayer").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
         else if (time > timeLimit)
         {
             gameOver = true;
+            animator.Play("Bonk");
         }
 
         // add to max time dependent on score
@@ -67,6 +72,8 @@ public class Player : MonoBehaviour
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
+                //animator.SetTrigger("Flap");
+                animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
@@ -77,12 +84,14 @@ public class Player : MonoBehaviour
                 }
                 rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
                 diving = true;
+                animator.Play("Dive");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
             {
                 yVelocity = flapHeight;
                 rb.velocity = new Vector2(speed, yVelocity);
                 diving = false;
+                animator.Play("Flap");
             }
 
             if (rb.velocity.y <= maxFallingVelocity)
