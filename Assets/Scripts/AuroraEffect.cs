@@ -2,25 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class AuroraEffect : MonoBehaviour
 {
     [SerializeField]    private float[] ZONE_ALTITUDE = {500f, 1000f, 1500f};
     [SerializeField]    private float[] AURORA_TRANSPARENCY = {90f, 18f, 4f};
+    [SerializeField]    private float MAX_LIGHT_INTENSITY = 5.0f;
 
     private Player player;
     private ParticleSystem[] particles;
+    private Light2D auroraLights;
     private float playerHeight;
     private float alphaMultiplier;
     private Gradient grad = new Gradient();
     private bool isChangingColor = false;
     private Vector3 colorMutation = new Vector3();
+    private bool isAuroraUpdating = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         particles = this.GetComponentsInChildren<ParticleSystem>();
+        auroraLights = this.GetComponentInChildren<Light2D>();
 
         // Hard-coded default color gradient (so we don't accidentally lose the values)
         grad.SetKeys(new GradientColorKey[] {
@@ -43,22 +48,12 @@ public class AuroraEffect : MonoBehaviour
         playerHeight = player.height;
         
         if (playerHeight < 0) playerHeight = 0;
-        if (playerHeight > ZONE_ALTITUDE[2]) playerHeight = ZONE_ALTITUDE[2];
+        if (playerHeight > ZONE_ALTITUDE[ZONE_ALTITUDE.Length-1]) playerHeight = ZONE_ALTITUDE[ZONE_ALTITUDE.Length-1];
 
         AuroraIntensity();
         AuroraColor();
 
-        // For each of the aurora GameObjects, Stop emitting particles, update the color, then start emitting again.
-        //   Particles can not be changed once they are already being emitted.
-        for (int i = 0; i < particles.Length; i++)
-        {
-            particles[i].Stop();
-            var m = particles[i].main;
-            //m.startColor = new Color(m.startColor.color.r, m.startColor.color.g, m.startColor.color.b, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
-            m.startColor = new Color(1f + colorMutation.x, 1f + colorMutation.y, 1f + colorMutation.z, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
-            m.startSize = (float)((i + 1f) * (0.75 + 0.5 * playerHeight / ZONE_ALTITUDE[2])); // Length of aurora = position in array * inverse altitude modifier
-            particles[i].Play();   
-        }
+        AuroraUpdate();
     }
 
     /// <summary>
@@ -121,9 +116,9 @@ public class AuroraEffect : MonoBehaviour
 
             for (float i = 0.1f; i <= 1f; i += 0.1f)
             {
-                colorMutation.x = 1 - (amtx * i);
-                colorMutation.y = 1 - (amty * i);
-                colorMutation.z = 1 - (amtz * i);
+                colorMutation.x = amtx * i;
+                colorMutation.y = amty * i;
+                colorMutation.z = amtz * i;
                 /*
                 switch (colorToMutate)
                 {
@@ -138,14 +133,14 @@ public class AuroraEffect : MonoBehaviour
                         break;
                 }
                 */
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.1f);
             }
             
             for (float i = 1f; i > 0f; i -= 0.1f)
             {
-                colorMutation.x = 1 - (amtx * i);
-                colorMutation.y = 1 - (amty * i);
-                colorMutation.z = 1 - (amtz * i);
+                colorMutation.x = amtx * i;
+                colorMutation.y = amty * i;
+                colorMutation.z = amtz * i;
                 /*
                 switch (colorToMutate)
                 {
@@ -160,13 +155,45 @@ public class AuroraEffect : MonoBehaviour
                         break;
                 }
                 */
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.1f);
             }
 
             colorMutation.Set(0f, 0f, 0f); // Reset the color mutator
             yield return new WaitForSeconds(1f);
 
             isChangingColor = false;
+        }
+    }
+
+    private void AuroraUpdate()
+    {
+        StartCoroutine(AuroraUpdating());
+    }
+
+    private IEnumerator AuroraUpdating()
+    {
+        if (!isAuroraUpdating)
+        {
+            isAuroraUpdating = true;
+            
+            // For each of the aurora GameObjects, Stop emitting particles, update the color, then start emitting again.
+            //   Particles can not be changed once they are already being emitted.
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Stop();
+                var m = particles[i].main;
+                //m.startColor = new Color(m.startColor.color.r, m.startColor.color.g, m.startColor.color.b, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
+                m.startColor = new Color(1f - colorMutation.x, 1f - colorMutation.y, 1f - colorMutation.z, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
+                m.startSize = (float)((i + 1f) * (0.75 + 0.5 * playerHeight / ZONE_ALTITUDE[2])); // Length of aurora = position in array * inverse altitude modifier
+                particles[i].Play();
+            }
+
+            // Change the Light2D intensity based on altitude
+            auroraLights.intensity = playerHeight / ZONE_ALTITUDE[ZONE_ALTITUDE.Length-1] * MAX_LIGHT_INTENSITY;
+            auroraLights.color = new Color(1f - colorMutation.x, 1f - colorMutation.y, 1f - colorMutation.z);
+            yield return new WaitForSeconds(0.1f);
+
+            isAuroraUpdating = false;
         }
     }
 }
