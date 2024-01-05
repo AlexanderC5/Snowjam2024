@@ -10,11 +10,11 @@ public class LightIntensityPulse : MonoBehaviour
     [SerializeField] float maxIntensity;
     [SerializeField] int numSteps;
     [SerializeField] float timePerStep;
-    private new Light2D light;
+    private Light2D light2d;
 
     void Awake()
     {
-        light = GetComponent<Light2D>();
+        light2d = GetComponent<Light2D>();
     }
 
     // Start is called before the first frame update
@@ -28,15 +28,15 @@ public class LightIntensityPulse : MonoBehaviour
         if (!isChangingIntensity)
         {
             isChangingIntensity = true;
-            light.intensity = minIntensity;
+            light2d.intensity = minIntensity;
             var stepSize = (maxIntensity - minIntensity) / numSteps;
-            while (light.intensity < maxIntensity)
+            while (light2d.intensity < maxIntensity)
             {
-                light.intensity += stepSize;
+                light2d.intensity += stepSize;
                 yield return new WaitForSeconds(timePerStep);
-            }while (light.intensity > minIntensity)
+            }while (light2d.intensity > minIntensity)
             {
-                light.intensity -= stepSize;
+                light2d.intensity -= stepSize;
                 yield return new WaitForSeconds(timePerStep);
             }
             yield return new WaitForSeconds(1f); // pause 1 second between pulses
