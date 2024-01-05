@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private float startSpeed = 5f;
+    [SerializeField]
     private float flapHeight = 8f;
     [SerializeField]
     private float maxFallingVelocity = -100f;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
+        rb.velocity = new Vector2(startSpeed, rb.velocity.y);
     }
 
     // Update is called once per frame
