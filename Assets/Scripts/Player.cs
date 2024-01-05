@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public float speedUpgrade = 0f;
 
     private bool wasHandled = false;
+    private GameManager gameManager;
 
     public Animator animator;
 
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         //animator = GameObject.FindWithTag("SpritePlayer").GetComponent<Animator>();
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
+        gameManager = Object.FindFirstObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,11 +54,13 @@ public class Player : MonoBehaviour
         if (distance >= winDist)
         {
             win = true;
+            gameManager.GameState = GameManager.GameStates.win;
         }
         else if (time > timeLimit)
         {
             gameOver = true;
             animator.Play("Bonk");
+            gameManager.GameState = GameManager.GameStates.lose;
         }
 
         // add to max time dependent on score
@@ -66,7 +70,7 @@ public class Player : MonoBehaviour
             backgroundScore -= 3;
         }
 
-        if (!gameOver && !win)
+        if (!gameOver)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
@@ -101,6 +105,7 @@ public class Player : MonoBehaviour
 
             height = transform.position.y;
             distance = transform.position.x;
+
             if(!wasHandled && rb.velocity.x != 0)
             {
                 StartCoroutine(scoreAdd());
