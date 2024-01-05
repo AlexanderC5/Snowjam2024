@@ -462,6 +462,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aurora
       objectReference: {fileID: 0}
+    - target: {fileID: 3836569390592693593, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
+      propertyPath: MaxDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 24.670343
+      objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.503492
@@ -476,19 +484,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9914449
+      value: 0.98044914
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.13052624
+      value: -0.19677249
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -500,7 +508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -15
+      value: -22.697
       objectReference: {fileID: 0}
     - target: {fileID: 8615380073674828853, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_IsTrigger

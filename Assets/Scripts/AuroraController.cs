@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AuroraController : MonoBehaviour
 {
-    [SerializeField] public float MaxDistance = 20f;
+    [SerializeField] public float MaxDistance = 30f;
     [SerializeField] public float Speed = 0.5f;
     [SerializeField] public float Accleration = 0.1f;
     [SerializeField] public float StartingDistance = 15f;
@@ -24,12 +24,12 @@ public class AuroraController : MonoBehaviour
 
         // follow player y;
         Vector2 playerDisplacement = player.transform.position - transform.position;
-        nextPos.x += playerDisplacement.y * Mathf.Tan(transform.rotation.z);
+        nextPos.x += playerDisplacement.y * -Mathf.Tan(transform.rotation.z);
         nextPos.y += playerDisplacement.y;
 
         // stay within MaxDistance;
         if (playerDisplacement.x >= MaxDistance)
-            nextPos.x =  player.transform.position.x - MaxDistance;
+            nextPos.x = player.transform.position.x - MaxDistance;
 
         transform.position = nextPos;
         Speed += Accleration * Time.deltaTime;
