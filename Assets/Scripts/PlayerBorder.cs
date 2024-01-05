@@ -26,6 +26,7 @@ public class PlayerBorder : MonoBehaviour
             player.animator.Play("Bonk");
             player.gameOver = true;
             player.rb.velocity = new Vector2(0, 0);
+            StartCoroutine(Swap());
             //player.score -= 1;
         }
     }
@@ -68,5 +69,12 @@ public class PlayerBorder : MonoBehaviour
         {
             SceneManager.LoadScene("Start");
         }
+    }
+
+    IEnumerator Swap()
+    {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Start");
     }
 }

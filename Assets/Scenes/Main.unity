@@ -169,12 +169,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: audioClipArray.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: audioClipArray.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 80d76505b9b7e1e42bd7047d520cb960, type: 3}
+      objectReference: {fileID: 8300000, guid: 049631fadb181f04ea25d816530e81df, type: 3}
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: audioClipArray.Array.data[1]
       value: 

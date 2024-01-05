@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
         rb.velocity = new Vector2(startSpeed, rb.velocity.y);
-        audioSource.PlayOneShot(audioClipArray[3]);
+        audioSource.PlayOneShot(audioClipArray[0]);
     }
 
     // Update is called once per frame
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
                 //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
-                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
+                //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
