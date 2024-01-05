@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private float startSpeed = 5f;
+    [SerializeField]
     private float flapHeight = 8f;
     [SerializeField]
     private float maxFallingVelocity = -100f;
@@ -13,6 +15,9 @@ public class Player : MonoBehaviour
     public int score = 0;
     [SerializeField]
     public double timeLimit = 100.0;
+    [SerializeField]
+    private float winDist = 150f;
+
 
     public int backgroundScore = 0;
     public double time;
@@ -22,7 +27,6 @@ public class Player : MonoBehaviour
     public float height;
     public float distance;
     private bool diving = false;
-    private float winDist = 150f;
     public bool win = false;
     public int inZone;
     public GameObject Zone;
@@ -45,6 +49,7 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
+        rb.velocity = new Vector2(startSpeed, rb.velocity.y);
     }
 
     // Update is called once per frame
@@ -74,17 +79,17 @@ public class Player : MonoBehaviour
 
         if (!gameOver)
         {
+            rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
-                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*5, 0, 100), 0));
+                //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
-                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f + diveUpgrade) * -1f;
-                rb.AddForce(new Vector2(Mathf.Abs(yVelocity*0.25f), 0));
+                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.1f + diveUpgrade) * -1f;
                 if (yVelocity < maxFallingVelocity)
                 {
                     yVelocity = maxFallingVelocity;
@@ -95,8 +100,10 @@ public class Player : MonoBehaviour
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
             {
+                flapHeight += 0.5f;
                 yVelocity = flapHeight;
                 rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+                rb.AddForce(new Vector2(Mathf.Abs(yVelocity * 0.25f), 0));
                 diving = false;
                 animator.Play("Flap");
             }
@@ -114,9 +121,9 @@ public class Player : MonoBehaviour
                 StartCoroutine(scoreAdd());
             }
 
-            if(rb.velocity.x <= 1)
+            if(rb.velocity.x <= 5)
             {
-                rb.velocity = new Vector2(1, rb.velocity.y);
+                rb.velocity = new Vector2(5, rb.velocity.y);
             }
         }
     }
