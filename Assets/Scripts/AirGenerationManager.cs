@@ -41,7 +41,7 @@ public class AirGenerationManager : MonoBehaviour
                 Debug.Log("Spawning random item");
                 Vector2 nextLocation = (Vector2)player.transform.position + playerRb.velocity.normalized * 20 + 
                     new Vector2(playerRb.velocity.y, -playerRb.velocity.x) * 10 * Random.value;
-                GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x, nextLocation.y);
+                GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x, nextLocation.y + 20);
                 obstacleObjects.Add(obstacle);
                 spawnCountdown = (1+Random.value) * (10/zoneDensities[zone]);
             }
