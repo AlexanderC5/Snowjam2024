@@ -8,7 +8,7 @@ public class WinScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Swap);
+        StartCoroutine(Swap());
     }
 
     // Update is called once per frame
