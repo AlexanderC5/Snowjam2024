@@ -7,10 +7,11 @@ public class PlayerBorder : MonoBehaviour
 {
     [SerializeField]
     private int coinWorth = 3;
+    private Player player;
     // Start is called before the first frame update
     void Start()
     {
-
+        player= GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -22,10 +23,10 @@ public class PlayerBorder : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().animator.Play("Bonk");
-            GameObject.FindWithTag("Player").GetComponent<Player>().gameOver = true;
-            GameObject.FindWithTag("Player").GetComponent<Player>().rb.velocity = new Vector2(0, 0);
-            //GameObject.FindWithTag("Player").GetComponent<Player>().score -= 1;
+            player.animator.Play("Bonk");
+            player.gameOver = true;
+            player.rb.velocity = new Vector2(0, 0);
+            //player.score -= 1;
         }
     }
 
@@ -33,33 +34,34 @@ public class PlayerBorder : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().score += coinWorth;
-            GameObject.FindWithTag("Player").GetComponent<Player>().backgroundScore += coinWorth;
+            player.score += coinWorth;
+            player.backgroundScore += coinWorth;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("flapHeightUpgrade"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().flapHeightUpgrade += 0.25f;
+            player.flapHeightUpgrade += 0.25f;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("diveUpgrade"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().diveUpgrade += 0.02f;
+            player.diveUpgrade += 0.02f;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("speedUpgrade"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().speedUpgrade += 0.5f;
+            player.speedUpgrade += 0.5f;
+            player.speedTarget += 0.5f;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("zone"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().inZone = collision.gameObject.GetComponent<Zone>().zone;
-            GameObject.FindWithTag("Player").GetComponent<Player>().Zone = collision.gameObject;
+            player.inZone = collision.gameObject.GetComponent<Zone>().zone;
+            player.Zone = collision.gameObject;
         }
         else if (collision.gameObject.CompareTag("boost"))
         {
-            GameObject.FindWithTag("Player").GetComponent<Player>().rb.AddForce(collision.gameObject.GetComponent<BoostItem>().Direction * collision.gameObject.GetComponent<BoostItem>().Strength, ForceMode2D.Impulse);
+            player.rb.AddForce(collision.gameObject.GetComponent<BoostItem>().Direction * collision.gameObject.GetComponent<BoostItem>().Strength, ForceMode2D.Impulse);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Finish"))
