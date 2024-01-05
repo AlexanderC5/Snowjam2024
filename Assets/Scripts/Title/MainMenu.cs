@@ -25,6 +25,14 @@ public class MainMenu : MonoBehaviour
         slideAnimator = slidingMenu.GetComponent<Animator>();
     }
 
+    void Update()
+    {
+        if (isOptionsMenuOpen && Input.GetMouseButtonDown(1))
+        {
+            toggleOptions();
+        }
+    }
+
     public void playGame()
     {
         StartCoroutine(fadeToBlack("play"));
@@ -47,6 +55,7 @@ public class MainMenu : MonoBehaviour
         {
             isInTransition = true;
             fadeAnimator.Play("FadeToBlack");
+            slideAnimator.Play("SlideDown");
             yield return new WaitForSeconds(FADE_DURATION);
             isInTransition = false;
             switch(s)
