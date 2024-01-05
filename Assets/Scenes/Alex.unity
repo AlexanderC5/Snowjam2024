@@ -208,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5398219865962949918, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -849,7 +849,9 @@ MonoBehaviour:
   - {fileID: 1320707581305330132, guid: 1656a57459c93b94ea72257ce3a7969d, type: 3}
   Zone4Prefabs:
   - {fileID: 4949823724152695936, guid: ad64607dee5905647bfb3c90204e6fbc, type: 3}
+  PickUpPrefabs: []
   zoneDensities: 050000000a0000000f00000014000000
+  pickupDensity: 5
 --- !u!114 &2028439545
 MonoBehaviour:
   m_ObjectHideFlags: 0
