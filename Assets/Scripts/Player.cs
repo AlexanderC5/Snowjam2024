@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // speed boost
-        if (collision.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("obstacle"))
         {
             rb.velocity = new Vector2(rb.velocity.x + 1, rb.velocity.y);
             //score += 1;

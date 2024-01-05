@@ -9,6 +9,8 @@ TagManager:
   - diveUpgrade
   - speedUpgrade
   - zone
+  - obstacle
+  - boost
   layers:
   - Default
   - TransparentFX

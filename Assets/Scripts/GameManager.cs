@@ -5,10 +5,10 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] Zone1Prefabs;
+    /*public GameObject[] Zone1Prefabs;
     public GameObject[] Zone2Prefabs;
     public GameObject[] Zone3Prefabs;
-    public GameObject[] Zone4Prefabs;
+    public GameObject[] Zone4Prefabs;*/
 
     public enum GameStates
     {
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         float y = Random.Range(currZone.GetComponent<Renderer>().bounds.min.y, currZone.GetComponent<Renderer>().bounds.max.y);
         int zone = currZone.GetComponent<Zone>().zone;
         spawnObs(zone, x, y);
-    }*/
+    }
 
     void spawnObs(int zone, float x, float y)
     {
@@ -119,5 +119,5 @@ public class GameManager : MonoBehaviour
             Instantiate(Zone1Prefabs[Random.Range(0, Zone1Prefabs.Length)], position, Quaternion.identity);
         }
         zone = getZoneFromHeight(player.height);
-    }
+    }*/
 }

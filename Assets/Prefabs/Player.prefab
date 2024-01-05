@@ -91,7 +91,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.20028889, y: 0.33237034}
-      - {x: -1.7021399, y: -0.124941766}
+      - {x: -0.05798489, y: 0.35864383}
+      - {x: -0.97913706, y: -0.044608325}
+      - {x: -0.93161803, y: -0.11201882}
       - {x: 0.17998987, y: -0.29160464}
       - {x: 0.4830557, y: -0.67628926}
       - {x: 0.5436441, y: 0.47582987}
@@ -360,7 +362,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &3287413442959105843
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

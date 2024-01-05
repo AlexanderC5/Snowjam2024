@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBorder : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class PlayerBorder : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("obstacle"))
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().animator.Play("Bonk");
             GameObject.FindWithTag("Player").GetComponent<Player>().gameOver = true;
@@ -55,6 +56,15 @@ public class PlayerBorder : MonoBehaviour
         {
             GameObject.FindWithTag("Player").GetComponent<Player>().inZone = collision.gameObject.GetComponent<Zone>().zone;
             GameObject.FindWithTag("Player").GetComponent<Player>().Zone = collision.gameObject;
+        }
+        else if (collision.gameObject.CompareTag("boost"))
+        {
+            GameObject.FindWithTag("Player").GetComponent<Player>().rb.AddForce(collision.gameObject.GetComponent<BoostItem>().Direction * collision.gameObject.GetComponent<BoostItem>().Strength, ForceMode2D.Impulse);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene("Start");
         }
     }
 }

@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &21601084
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -251,6 +251,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1468679100047737687, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5100431563575427402, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: m_Name
       value: Player
@@ -498,6 +502,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -15
       objectReference: {fileID: 0}
+    - target: {fileID: 8615380073674828853, guid: 234619cb9ac342a40bcd8d891c564f60, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -519,6 +527,8 @@ GameObject:
   - component: {fileID: 692291175}
   - component: {fileID: 692291174}
   - component: {fileID: 692291173}
+  - component: {fileID: 692291177}
+  - component: {fileID: 692291176}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -551,12 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7022b5617375faa4ab19ab2393d0c947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone1Prefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  Zone2Prefabs: []
-  Zone3Prefabs: []
-  Zone4Prefabs: []
   zoneHeights: 64000000c80000002c0100009f860100
   zone: 0
 --- !u!4 &692291175
@@ -574,6 +578,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692291176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692291172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3277069a86ec24693da40334808b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Win: 0
+  Zone1Prefabs:
+  - {fileID: 4949823724152695936, guid: ad64607dee5905647bfb3c90204e6fbc, type: 3}
+  - {fileID: 3105730977434060940, guid: d06d2a813b9d19e4f8c15df6f8bea925, type: 3}
+  Zone2Prefabs:
+  - {fileID: 5658689633487562997, guid: 0435004e453725443aac1667dc54f69c, type: 3}
+  Zone3Prefabs:
+  - {fileID: 1320707581305330132, guid: 1656a57459c93b94ea72257ce3a7969d, type: 3}
+  Zone4Prefabs:
+  - {fileID: 4949823724152695936, guid: ad64607dee5905647bfb3c90204e6fbc, type: 3}
+  zoneDensities: 050000000a0000000f00000014000000
+--- !u!114 &692291177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692291172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea3b8b77967a2a42bb664cc8a3eaefa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Win: 0
+  mountainPrefabs:
+  - {fileID: 4403256888085875230, guid: 26b0cd0d08ad41d43a71893efb7b85fc, type: 3}
+  - {fileID: 6960572527293104259, guid: e5aa9951fd1eb8e48b6621b987f8dee1, type: 3}
+  winPrefab: {fileID: 4403256888085875230, guid: 26b0cd0d08ad41d43a71893efb7b85fc, type: 3}
+  firstSegment: {fileID: 2025711161}
+  rightBound: 40
+  leftBound: -40
 --- !u!1001 &757045695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -817,7 +864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &1371133787
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -931,6 +978,14 @@ PrefabInstance:
     - target: {fileID: 3105730977434060940, guid: d06d2a813b9d19e4f8c15df6f8bea925, type: 3}
       propertyPath: m_Name
       value: BoostItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105730977434060940, guid: d06d2a813b9d19e4f8c15df6f8bea925, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105730977434060940, guid: d06d2a813b9d19e4f8c15df6f8bea925, type: 3}
+      propertyPath: m_TagString
+      value: boost
       objectReference: {fileID: 0}
     - target: {fileID: 5870377320702665284, guid: d06d2a813b9d19e4f8c15df6f8bea925, type: 3}
       propertyPath: m_LocalPosition.x
