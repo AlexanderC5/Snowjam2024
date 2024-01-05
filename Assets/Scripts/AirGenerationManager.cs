@@ -49,6 +49,10 @@ public class AirGenerationManager : MonoBehaviour
                 Vector2 nextLocation = (Vector2)player.transform.position + playerRb.velocity.normalized * 20 + 
                     new Vector2(playerRb.velocity.y, -playerRb.velocity.x) * 10 * Random.value;
                 GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x, nextLocation.y);
+                //GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x + 5, nextLocation.y + 25);
+                //GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x - 20, nextLocation.y);
+                //GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x + 20, nextLocation.y + 45);
+
                 dynamicObjects.Add(obstacle);
                 obstacleCountdown = (1+Random.value) * (10/zoneDensities[zone]);
             }
