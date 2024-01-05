@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
 
     public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip[] audioClipArray;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
         rb.velocity = new Vector2(startSpeed, rb.velocity.y);
+        audioSource.PlayOneShot(audioClipArray[3]);
     }
 
     // Update is called once per frame
