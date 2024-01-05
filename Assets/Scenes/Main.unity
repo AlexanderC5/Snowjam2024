@@ -140,8 +140,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
+      propertyPath: winDist
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: flapHeight
-      value: 8
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
+      propertyPath: startSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: speedTarget
@@ -150,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: targetAccel
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042182140551167812, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
+      propertyPath: maxFallingVelocity
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 7004745742437681829, guid: 656c855d3c0982a439033f15ab0a5261, type: 3}
       propertyPath: m_LocalPosition.x

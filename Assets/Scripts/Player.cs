@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     public int score = 0;
     [SerializeField]
     public double timeLimit = 100.0;
+    [SerializeField]
+    private float winDist = 150f;
+
 
     public int backgroundScore = 0;
     public double time;
@@ -24,7 +27,6 @@ public class Player : MonoBehaviour
     public float height;
     public float distance;
     private bool diving = false;
-    private float winDist = 150f;
     public bool win = false;
     public int inZone;
     public GameObject Zone;
@@ -81,13 +83,14 @@ public class Player : MonoBehaviour
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
-                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
+                //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
+                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
-                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f + diveUpgrade) * -1f;
-                rb.AddForce(new Vector2(Mathf.Abs(yVelocity*0.25f), 0));
+                yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.1f + diveUpgrade) * -1f;
+                //rb.AddForce(new Vector2(Mathf.Abs(yVelocity*0.25f), 0));
                 if (yVelocity < maxFallingVelocity)
                 {
                     yVelocity = maxFallingVelocity;
@@ -98,8 +101,10 @@ public class Player : MonoBehaviour
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
             {
+                flapHeight += 0.5f;
                 yVelocity = flapHeight;
                 rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+                rb.AddForce(new Vector2(Mathf.Abs(yVelocity * 0.25f), 0));
                 diving = false;
                 animator.Play("Flap");
             }
