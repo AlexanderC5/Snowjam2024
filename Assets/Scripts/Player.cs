@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
-                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*5, 0, 100), 0));
+                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
@@ -117,9 +117,9 @@ public class Player : MonoBehaviour
                 StartCoroutine(scoreAdd());
             }
 
-            if(rb.velocity.x <= 1)
+            if(rb.velocity.x <= 5)
             {
-                rb.velocity = new Vector2(1, rb.velocity.y);
+                rb.velocity = new Vector2(5, rb.velocity.y);
             }
         }
     }
