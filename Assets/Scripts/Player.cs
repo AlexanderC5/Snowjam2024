@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 2.5f;
-    [SerializeField]
     private float flapHeight = 4f;
     [SerializeField]
     private float maxFallingVelocity = -100f;
@@ -43,7 +41,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        //animator = GameObject.FindWithTag("SpritePlayer").GetComponent<Animator>();
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
     }
@@ -77,7 +74,7 @@ public class Player : MonoBehaviour
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
-                rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
+                rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
                 //animator.SetTrigger("Flap");
                 animator.Play("Flap");
             }
@@ -88,14 +85,14 @@ public class Player : MonoBehaviour
                 {
                     yVelocity = maxFallingVelocity;
                 }
-                rb.velocity = new Vector2(speed + speedUpgrade, yVelocity);
+                rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
                 diving = true;
                 animator.Play("Dive");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
             {
                 yVelocity = flapHeight;
-                rb.velocity = new Vector2(speed, yVelocity);
+                rb.velocity = new Vector2(rb.velocity.x, yVelocity);
                 diving = false;
                 animator.Play("Flap");
             }
@@ -111,6 +108,11 @@ public class Player : MonoBehaviour
             if(!wasHandled && rb.velocity.x != 0)
             {
                 StartCoroutine(scoreAdd());
+            }
+
+            if(rb.velocity.x <= 1)
+            {
+                rb.velocity = new Vector2(1, rb.velocity.y);
             }
         }
     }
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
     {
         wasHandled = true;
         yield return new WaitForSeconds(1.0f);
-        score += (int) speed;
+        score += (int) rb.velocity.x;
         wasHandled = false;
     }
 }
