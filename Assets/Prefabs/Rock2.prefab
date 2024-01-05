@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6559421863671127829}
   - component: {fileID: 8635993088395037307}
   - component: {fileID: 4186643731950860011}
+  - component: {fileID: 6116829878574050720}
+  - component: {fileID: 5218498753864730630}
   m_Layer: 0
   m_Name: Rock2
   m_TagString: obstacle
@@ -165,3 +167,44 @@ PolygonCollider2D:
       - {x: 0.51, y: -0.88}
       - {x: 0.65, y: -0.81}
   m_UseDelaunayMesh: 0
+--- !u!50 &6116829878574050720
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658689633487562997}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &5218498753864730630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658689633487562997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b160de6afaa05e42a0c99fc7b518276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dir: Down Left
+  speed: 2

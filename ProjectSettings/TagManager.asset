@@ -11,6 +11,7 @@ TagManager:
   - zone
   - obstacle
   - boost
+  - ground
   layers:
   - Default
   - TransparentFX

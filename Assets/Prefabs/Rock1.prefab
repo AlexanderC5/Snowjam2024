@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6815368163348332702}
   - component: {fileID: 8894137056833173830}
   - component: {fileID: 5055289011407855736}
+  - component: {fileID: -6165103064584867834}
+  - component: {fileID: 2072064368342114538}
   m_Layer: 0
   m_Name: Rock1
   m_TagString: obstacle
@@ -165,3 +167,44 @@ PolygonCollider2D:
       - {x: 0.51, y: -0.88}
       - {x: 0.65, y: -0.81}
   m_UseDelaunayMesh: 0
+--- !u!114 &-6165103064584867834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949823724152695936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b160de6afaa05e42a0c99fc7b518276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dir: Down Left
+  speed: 1
+--- !u!50 &2072064368342114538
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949823724152695936}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
