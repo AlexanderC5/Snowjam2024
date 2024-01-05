@@ -58,9 +58,8 @@ public class AirGenerationManager : MonoBehaviour
                 obstacleObjects.RemoveAt(checkInd);
             }
             else
-            {
-                checkInd = (checkInd + 1) % obstacleObjects.Count;
-            }
+                checkInd++;
+            checkInd %= obstacleObjects.Count;
         }
     }
 
