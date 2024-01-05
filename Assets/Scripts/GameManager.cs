@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             gameState = value;
         }
     }
-    public List<int> zoneHeights = new List<int>(){100, 200, 300, 99999};
+    public List<int> zoneHeights = new List<int>(){25, 50, 75, 99999};
     public int getZoneFromHeight(float height)
     {
         int z = 0;

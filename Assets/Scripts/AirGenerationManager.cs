@@ -9,9 +9,11 @@ public class AirGenerationManager : MonoBehaviour
     public GameObject[] Zone2Prefabs;
     public GameObject[] Zone3Prefabs;
     public GameObject[] Zone4Prefabs;
+    public GameObject[] PickUpPrefabs;
 
     [SerializeField] private List<int> zoneDensities = new List<int>(){5, 10, 15, 20};
-    List<GameObject> obstacleObjects= new List<GameObject>();
+    [SerializeField] private int pickupDensity = 5;
+    List<GameObject> dynamicObjects= new List<GameObject>();
 
     // Start is called before the first frame update
     private Player player;
@@ -19,21 +21,26 @@ public class AirGenerationManager : MonoBehaviour
     private Rigidbody2D playerRb;
     private int zone;
     private int checkInd = 0;
-    private float spawnCountdown;
+    private float obstacleCountdown;
+    private float pickupCountdown;
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         playerRb = player.gameObject.GetComponent<Rigidbody2D>();
+
         gameManager = Object.FindFirstObjectByType<GameManager>();
-        spawnCountdown = (1+Random.value) * (10/zoneDensities[zone]);
         zone = gameManager.zone;
+
+        obstacleCountdown = (1+Random.value) * (10/zoneDensities[zone]);
+        pickupCountdown = (1+Random.value) * (10/pickupDensity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawnCountdown -= playerRb.velocity.magnitude * Time.deltaTime;
-        if (spawnCountdown < 0)
+        obstacleCountdown -= playerRb.velocity.x * Time.deltaTime;
+        pickupCountdown -= playerRb.velocity.x * Time.deltaTime;
+        if (obstacleCountdown < 0)
         {
             // find next place to spawn 
             if (playerRb.velocity.magnitude != 0)
@@ -41,25 +48,38 @@ public class AirGenerationManager : MonoBehaviour
                 Debug.Log("Spawning random item");
                 Vector2 nextLocation = (Vector2)player.transform.position + playerRb.velocity.normalized * 20 + 
                     new Vector2(playerRb.velocity.y, -playerRb.velocity.x) * 10 * Random.value;
-                GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x, nextLocation.y + 20);
-                obstacleObjects.Add(obstacle);
-                spawnCountdown = (1+Random.value) * (10/zoneDensities[zone]);
+                GameObject obstacle = spawnObs(gameManager.getZoneFromHeight(nextLocation.y), nextLocation.x, nextLocation.y);
+                dynamicObjects.Add(obstacle);
+                obstacleCountdown = (1+Random.value) * (10/zoneDensities[zone]);
             }
         }
-        if (obstacleObjects.Count > 0)
+        if (pickupCountdown < 0)
         {
-            if (obstacleObjects[checkInd] == null)
+            // find next place to spawn 
+            if (playerRb.velocity.magnitude != 0)
             {
-                obstacleObjects.RemoveAt(checkInd);
+                Debug.Log("Spawning random pickup");
+                Vector2 nextLocation = (Vector2)player.transform.position + playerRb.velocity.normalized * 20 + 
+                    new Vector2(playerRb.velocity.y, -playerRb.velocity.x) * 10 * Random.value;
+                GameObject pickup = spawnPickup(nextLocation.x, nextLocation.y);
+                dynamicObjects.Add(pickup);
+                pickupCountdown = (1+Random.value) * (10/pickupDensity);
             }
-            else if (player.transform.position.x - obstacleObjects[checkInd].transform.position.x > 20)
+        }
+        if (dynamicObjects.Count > 0)
+        {
+            if (dynamicObjects[checkInd] == null)
             {
-                Destroy(obstacleObjects[checkInd]);
-                obstacleObjects.RemoveAt(checkInd);
+                dynamicObjects.RemoveAt(checkInd);
+            }
+            else if (player.transform.position.x - dynamicObjects[checkInd].transform.position.x > 20)
+            {
+                Destroy(dynamicObjects[checkInd]);
+                dynamicObjects.RemoveAt(checkInd);
             }
             else
                 checkInd++;
-            checkInd %= obstacleObjects.Count;
+            checkInd %= dynamicObjects.Count;
         }
     }
 
@@ -104,5 +124,11 @@ public class AirGenerationManager : MonoBehaviour
         {
             return Instantiate(Zone1Prefabs[Random.Range(0, Zone1Prefabs.Length)], position, Quaternion.identity);
         }
+    }
+
+    GameObject spawnPickup(float x, float y)
+    {
+        Vector3 position = new Vector3(x, y);
+        return Instantiate(PickUpPrefabs[Random.Range(0, PickUpPrefabs.Length)], position, Quaternion.identity);
     }
 }

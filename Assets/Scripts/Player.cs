@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float flapHeight = 4f;
+    private float flapHeight = 8f;
     [SerializeField]
     private float maxFallingVelocity = -100f;
     [SerializeField]
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float height;
     public float distance;
     private bool diving = false;
-    private float winDist = 50f;
+    private float winDist = 150f;
     public bool win = false;
     public int inZone;
     public GameObject Zone;
@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     public float diveUpgrade = 0f;
     public float flapHeightUpgrade = 0f;
     public float speedUpgrade = 0f;
+    public float speedTarget = 5f;
+    public float targetAccel = 0.25f;
 
     private bool wasHandled = false;
     private GameManager gameManager;
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         time = Time.time;
+        speedTarget += targetAccel * Time.deltaTime;
         if (distance >= winDist)
         {
             win = true;
@@ -75,12 +78,13 @@ public class Player : MonoBehaviour
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
-                //animator.SetTrigger("Flap");
+                rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*5, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
                 yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.2f + diveUpgrade) * -1f;
+                rb.AddForce(new Vector2(Mathf.Abs(yVelocity*0.25f), 0));
                 if (yVelocity < maxFallingVelocity)
                 {
                     yVelocity = maxFallingVelocity;
