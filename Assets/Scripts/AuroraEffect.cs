@@ -7,11 +7,12 @@ using UnityEngine.Rendering.Universal;
 public class AuroraEffect : MonoBehaviour
 {
     [SerializeField]    private float[] ZONE_ALTITUDE = {500f, 1000f, 1500f};
-    [SerializeField]    private float[] AURORA_TRANSPARENCY = {90f, 18f, 4f};
+    [SerializeField]    private float[] AURORA_TRANSPARENCY = {90f, 18f, 4f, 2f};
     [SerializeField]    private float MAX_LIGHT_INTENSITY = 5.0f;
 
     private Player player;
     private ParticleSystem[] particles;
+    //private float auroraWispHeight;
     private Light2D auroraLights;
     private float playerHeight;
     private float alphaMultiplier;
@@ -52,6 +53,7 @@ public class AuroraEffect : MonoBehaviour
 
         AuroraIntensity();
         AuroraColor();
+        //AuroraRotate();
 
         AuroraUpdate();
     }
@@ -78,6 +80,8 @@ public class AuroraEffect : MonoBehaviour
         {
             alphaMultiplier = 1f;
         }
+
+        //auroraWispHeight = 8f - 8f * (ZONE_ALTITUDE[ZONE_ALTITUDE.Length-1] - playerHeight);
 
         /*
         for (int i = 0; i < particles.Length; i++)
@@ -178,6 +182,10 @@ public class AuroraEffect : MonoBehaviour
             
             // For each of the aurora GameObjects, Stop emitting particles, update the color, then start emitting again.
             //   Particles can not be changed once they are already being emitted.
+            if (particles.Length < AURORA_TRANSPARENCY.Length)
+            {
+                Debug.Log("AURORA_TRANSPARENCY[] does not have enough elements!");
+            }
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i].Stop();
@@ -185,6 +193,13 @@ public class AuroraEffect : MonoBehaviour
                 //m.startColor = new Color(m.startColor.color.r, m.startColor.color.g, m.startColor.color.b, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
                 m.startColor = new Color(1f - colorMutation.x, 1f - colorMutation.y, 1f - colorMutation.z, AURORA_TRANSPARENCY[i]/255f * alphaMultiplier);
                 m.startSize = (float)((i + 1f) * (0.75 + 0.5 * playerHeight / ZONE_ALTITUDE[2])); // Length of aurora = position in array * inverse altitude modifier
+
+                if (i == 3 && playerHeight < ZONE_ALTITUDE[1]) // Scuffed hardcoded way to only make wisps appear in the highest zone
+                {
+                    m.startColor = new Color(1f - colorMutation.x, 1f - colorMutation.y, 1f - colorMutation.z, 0f);
+                    //gameObject.transform.localPosition.y = auroraWispHeight - 1.5f;
+                }
+
                 particles[i].Play();
             }
 
