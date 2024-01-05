@@ -16,10 +16,11 @@ public class BoostItem : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag == "Player")
+        Debug.Log("Entered Collision");
+        if (collision.gameObject.tag == "Player")
         {
-            collision.rigidbody.AddForce(Direction * Strength, ForceMode2D.Impulse);
             Debug.Log("Player picked up boost");
+            collision.rigidbody.AddForce(Direction * Strength, ForceMode2D.Impulse);
             Destroy(gameObject);
         }
     }
