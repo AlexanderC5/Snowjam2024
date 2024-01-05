@@ -5,6 +5,11 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject[] Zone1Prefabs;
+    public GameObject[] Zone2Prefabs;
+    public GameObject[] Zone3Prefabs;
+    public GameObject[] Zone4Prefabs;
+
     public enum GameStates
     {
         start, // we may want special behavior when loading in
@@ -60,7 +65,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        zone = getZoneFromHeight(player.height);
     }
 
     /*void generateRandObs(int zone)
