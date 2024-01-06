@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
 
     public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip[] audioClipArray;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
         rb.velocity = new Vector2(startSpeed, rb.velocity.y);
+        audioSource.PlayOneShot(audioClipArray[0]);
     }
 
     // Update is called once per frame
@@ -79,17 +82,18 @@ public class Player : MonoBehaviour
 
         if (!gameOver)
         {
-            rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
                 yVelocity = flapHeight + flapHeightUpgrade;
                 rb.velocity = new Vector2(rb.velocity.x + speedUpgrade, yVelocity);
                 //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget-rb.velocity.x)*2, 0, 100), 0));
+                //rb.AddForce(new Vector2(Mathf.Clamp((speedTarget - rb.velocity.x) * 1.25f, 0, 100), 0));
                 animator.Play("Flap");
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) && !diving)
             {
                 yVelocity = Mathf.Pow(Mathf.Abs(rb.velocity.y), 1.1f + diveUpgrade) * -1f;
+                //rb.AddForce(new Vector2(Mathf.Abs(yVelocity*0.25f), 0));
                 if (yVelocity < maxFallingVelocity)
                 {
                     yVelocity = maxFallingVelocity;
