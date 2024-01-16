@@ -5,9 +5,11 @@ using UnityEngine;
 public class AuroraController : MonoBehaviour
 {
     [SerializeField] public float MaxDistance = 30f;
-    [SerializeField] public float Speed = 0.5f;
+    [SerializeField] public float Speed = 2f;
     [SerializeField] public float Accleration = 0.1f;
     [SerializeField] public float StartingDistance = 15f;
+
+    public Vector2 playerDisplacement; // For debug purposes, public so can be seen in the inspector
     // Start is called before the first frame update
     private GameObject player;
     void Start()
@@ -23,7 +25,7 @@ public class AuroraController : MonoBehaviour
         nextPos.x += Speed * Time.deltaTime;
 
         // follow player y;
-        Vector2 playerDisplacement = player.transform.position - transform.position;
+        playerDisplacement = player.transform.position - transform.position;
         nextPos.x += playerDisplacement.y * -Mathf.Tan(transform.rotation.z);
         nextPos.y += playerDisplacement.y;
 

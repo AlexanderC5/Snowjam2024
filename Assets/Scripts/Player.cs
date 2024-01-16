@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
 
     public Animator animator;
-    public AudioSource audioSource;
-    public AudioClip[] audioClipArray;
+
+    [SerializeField] public bool isInvincible = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
         animator = transform.Find("SpritePlayer").GetComponent<Animator>();
         gameManager = Object.FindFirstObjectByType<GameManager>();
         rb.velocity = new Vector2(startSpeed, rb.velocity.y);
-        audioSource.PlayOneShot(audioClipArray[0]);
     }
 
     // Update is called once per frame
@@ -66,7 +65,7 @@ public class Player : MonoBehaviour
             gameManager.GameState = GameManager.GameStates.win;
             SceneManager.LoadScene("Win");
         }
-        else if (time > timeLimit)
+        else if (time > timeLimit && !isInvincible)
         {
             gameOver = true;
             animator.Play("Bonk");
@@ -80,7 +79,12 @@ public class Player : MonoBehaviour
             backgroundScore -= 3;
         }
 
-        if (!gameOver)
+        if (Input.GetKeyDown("i")) // Toggle dev-mode invincibility by pressing 'i'
+        {
+            isInvincible = !isInvincible;
+        }
+
+        if (!gameOver || isInvincible)
         {
             if ((Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && !diving)
             {
@@ -104,7 +108,7 @@ public class Player : MonoBehaviour
             }
             else if ((Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) && diving)
             {
-                flapHeight += 0.5f;
+                //flapHeight += 0.5f; <--- breaks the game too much since it scales indefinitely
                 yVelocity = flapHeight;
                 rb.velocity = new Vector2(rb.velocity.x, yVelocity);
                 rb.AddForce(new Vector2(Mathf.Abs(yVelocity * 0.25f), 0));
@@ -148,5 +152,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         score += (int) rb.velocity.x;
         wasHandled = false;
+    }
+
+    public float GetVelocityY()
+    {
+        return yVelocity;
     }
 }

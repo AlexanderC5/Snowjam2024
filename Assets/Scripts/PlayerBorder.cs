@@ -23,6 +23,7 @@ public class PlayerBorder : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("obstacle"))
         {
+            if (player.isInvincible) return;
             player.animator.Play("Bonk");
             player.gameOver = true;
             player.rb.velocity = new Vector2(0, 0);
